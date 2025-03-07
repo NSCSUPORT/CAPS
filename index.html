@@ -198,7 +198,7 @@
     <h1>Pagamento Bosco Jones</h1>
     <div class="container">
         <div class="form-group">
-            <label for="payment-amount">Valor a ser pago:</label>
+            <label for="payment-amount">Valor a ser pago (em R$):</label>
             <input type="number" id="payment-amount" placeholder="Digite o valor em reais" />
         </div>
         <button id="generate-code-btn">Gerar Código QR</button>
@@ -217,16 +217,21 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script>
+        // Definir o valor do dólar em reais (dark USD)
+        const darkUSD = 5.5;  // Exemplo de valor do dólar em reais
+
         // Função para gerar um código hexadecimal aleatório
         function generateHexadecimal() {
             return Math.floor(Math.random() * 16777215).toString(16);
         }
 
         document.getElementById('generate-code-btn').addEventListener('click', function() {
-            const amount = document.getElementById('payment-amount').value;
-            if (amount) {
+            const amountInBRL = document.getElementById('payment-amount').value;
+            if (amountInBRL) {
+                // Converter o valor para USD usando darkUSD
+                const amountInUSD = (amountInBRL / darkUSD).toFixed(2);
                 const transactionId = generateHexadecimal(); // Gerar número hexadecimal
-                const qrData = `PIX-QR|Valor=${amount}|Destino=BancoBoscoJones|ID=${transactionId}`;
+                const qrData = `PIX-QR|Valor=R$${amountInBRL} (${amountInUSD} USD)|Destino=BancoBoscoJones|ID=${transactionId}`;
                 document.getElementById('qrcode').innerHTML = '';
                 new QRCode(document.getElementById("qrcode"), qrData);
                 document.getElementById('qrcode-container').style.display = 'block';
