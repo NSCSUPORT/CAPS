@@ -217,10 +217,16 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script>
+        // Função para gerar um código hexadecimal aleatório
+        function generateHexadecimal() {
+            return Math.floor(Math.random() * 16777215).toString(16);
+        }
+
         document.getElementById('generate-code-btn').addEventListener('click', function() {
             const amount = document.getElementById('payment-amount').value;
             if (amount) {
-                const qrData = `PIX-QR|Valor=${amount}|Destino=BancoBoscoJones`;
+                const transactionId = generateHexadecimal(); // Gerar número hexadecimal
+                const qrData = `PIX-QR|Valor=${amount}|Destino=BancoBoscoJones|ID=${transactionId}`;
                 document.getElementById('qrcode').innerHTML = '';
                 new QRCode(document.getElementById("qrcode"), qrData);
                 document.getElementById('qrcode-container').style.display = 'block';
