@@ -1,3 +1,4 @@
+// blockchain.js
 const Web3 = require('web3');
 const HoloFi = require('holofi-js');
 const { abi, address } = require('./DarkCoinABI.json');  // ABI do contrato e endereço do contrato
@@ -50,4 +51,3 @@ async function mintTokens(amount) {
 
 // Exportar funções para uso na API
 module.exports = { checkBalance, transferDarkCoin, mintTokens };
-blockchain.js (
